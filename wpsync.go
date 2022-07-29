@@ -10,6 +10,7 @@ import (
 	"fmt"
 	"io/ioutil"
 	"os"
+	"path/filepath"
 	"time"
 )
 
@@ -60,7 +61,7 @@ var log Logger
 var setup bool
 var dryrun bool
 var confirm bool
-var configfile string
+var configfile string = filepath.Join(os.Getenv("HOME"), "wpsync.json")
 
 // read config and parse args
 func myInit() {
@@ -73,7 +74,7 @@ func myInit() {
 	flag.BoolVar(&dryrun, "dryrun", false, "Test run, shows what will happen")
 	flag.BoolVar(&setup, "init", false, "Create settings for blog and auth")
 	flag.BoolVar(&confirm, "confirm", false, "Confirm prompt before upload")
-	flag.StringVar(&configfile, "config", "wpsync.json", "Location of config file")
+	flag.StringVar(&configfile, "config", configfile, "Location of config file")
 
 	flag.Parse()
 
