@@ -11,7 +11,6 @@ Go Environment: install using: `go get github.com/mkaz/wpsync`
 
 Binaries: See [releases tab](https://github.com/mkaz/wpsync/releases) in Github
 
-
 ## Setup
 
 Works with any self-hosted WordPress but requires the [JWT Authentication](https://wordpress.org/plugins/jwt-authentication-for-wp-rest-api/) plugin to be installed and activated. Follow the plugin instructions for installation and setup.
@@ -65,6 +64,8 @@ Arguments:
 
   -confirm
     	Confirm prompt before upload
+  -config
+		Set location of config file
   -debug
     	Display debug messages
   -dryrun

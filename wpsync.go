@@ -60,6 +60,7 @@ var log Logger
 var setup bool
 var dryrun bool
 var confirm bool
+var configfile string
 
 // read config and parse args
 func myInit() {
@@ -72,6 +73,8 @@ func myInit() {
 	flag.BoolVar(&dryrun, "dryrun", false, "Test run, shows what will happen")
 	flag.BoolVar(&setup, "init", false, "Create settings for blog and auth")
 	flag.BoolVar(&confirm, "confirm", false, "Confirm prompt before upload")
+	flag.StringVar(&configfile, "config", "wpsync.json", "Location of config file")
+
 	flag.Parse()
 
 	if *helpFlag {
@@ -83,13 +86,13 @@ func myInit() {
 		os.Exit(0)
 	}
 
-	file, err := ioutil.ReadFile("wpsync.json")
+	file, err := ioutil.ReadFile(configfile)
 	if err != nil {
-		log.Debug("wpsync.json file not found, running setup", err)
+		log.Debug("config file "+configfile+" not found, running setup", err)
 		setup = true
 	} else {
 		if err := json.Unmarshal(file, &conf); err != nil {
-			log.Fatal("Error parsing wpsync.json", err)
+			log.Fatal("Error parsing config file  "+configfile, err)
 		}
 	}
 

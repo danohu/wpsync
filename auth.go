@@ -65,11 +65,11 @@ func runSetup() {
 	if err != nil {
 		log.Warn("JSON Encoding Error", err)
 	} else {
-		err = ioutil.WriteFile("wpsync.json", jsonConf, 0644)
+		err = ioutil.WriteFile(configfile, jsonConf, 0644)
 		if err != nil {
-			log.Warn("Error writing wpsync.json", err)
+			log.Warn("Error writing config file "+configfile, err)
 		} else {
-			log.Debug("wpsync.json written")
+			log.Debug("Wrote config file " + configfile)
 		}
 	}
 }
