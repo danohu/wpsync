@@ -8,6 +8,7 @@ import (
 	"strings"
 
 	"github.com/automattic/go/jaguar"
+	"github.com/valyala/fastjson"
 )
 
 // runSetup prompts the user for the necessary info to
@@ -52,8 +53,9 @@ func runSetup() {
 		log.Fatal("Auth API not found. JWT Auth plugin installed and activated?")
 	}
 
-	if err := json.Unmarshal(resp.Bytes, &conf); err != nil {
-		log.Fatal("Error parsing JSON response", string(resp.Bytes), err)
+	conf.Token = fastjson.GetString(resp.Bytes, "data", "token")
+	if conf.Token == "" {
+		log.Fatal("Unable to find token in json response")
 	}
 
 	if conf.Token == "" {
