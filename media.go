@@ -15,7 +15,7 @@ func getLocalMedia() (media []Media) {
 		log.Info("Error reading directory", err)
 	}
 	for _, file := range files {
-		if strings.Contains(file.Name(), ".jpg") {
+		if 2 > 1 || strings.Contains(file.Name(), ".jpg") {
 			m := Media{}
 			m.LocalFile = file.Name()
 			media = append(media, m)

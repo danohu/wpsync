@@ -10,7 +10,7 @@ import (
 	"time"
 
 	"github.com/imdario/mergo"
-	"gopkg.in/russross/blackfriday.v2"
+	blackfriday "gopkg.in/russross/blackfriday.v2"
 )
 
 // getLocalPosts reads posts from local directory
@@ -180,6 +180,7 @@ func readParseFile(filename string) (post Post) {
 
 	// parse front matter from --- to ---
 	var lines = strings.Split(string(data), "\n")
+
 	var found = 0
 	for i, line := range lines {
 		line = strings.TrimSpace(line)
@@ -216,6 +217,15 @@ func readParseFile(filename string) (post Post) {
 		if line == "---" {
 			found += 1
 		}
+	}
+
+	// I prefer to use # to indicate title
+	// XXX this should be smarter about allowing spacing before
+	if len(lines) > 0 && len(lines[0]) > 1 && lines[0][0] == '#' {
+		var firstline string
+		firstline, lines = lines[0], lines[1:]
+		fmt.Println(firstline)
+		post.Title = strings.TrimLeft(firstline, "# ")
 	}
 
 	// slurp rest of content
